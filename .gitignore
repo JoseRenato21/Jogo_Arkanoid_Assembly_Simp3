@@ -1,0 +1,3 @@
+*.exe
+!instalacoes_e_codigo/p3as-win.exe
+.DS_Store
