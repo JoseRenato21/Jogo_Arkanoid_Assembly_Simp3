@@ -52,8 +52,6 @@ java -jar p3sim.jar arkanoid_jose_pereira.exe
 
 No simulador, carregue o `.exe`, abra a janela de texto (terminal) e clique em **Run**. O jogo é desenhado nessa janela.
 
-Há também um `Makefile` na raiz com os atalhos `make build` e `make run` para Linux.
-
 ## Como o código está organizado
 
 O arquivo `arkanoid_jose_pereira.as` segue as quatro zonas padrão do assembly P3:
@@ -90,7 +88,6 @@ A explicação detalhada de cada decisão está em [`docs/FUNCIONAMENTO.md`](doc
 ```
 .
 ├── README.md
-├── Makefile
 ├── docs/
 │   └── FUNCIONAMENTO.md
 └── instalacoes_e_codigo/
