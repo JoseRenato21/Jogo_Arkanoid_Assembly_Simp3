@@ -17,7 +17,7 @@ Esse cálculo é a base de toda colisão: para saber o que existe na célula seg
 1. Apaga a bola da posição atual.
 2. Testa as paredes laterais e inverte `dirXBola` se necessário.
 3. Testa o teto (`LINHA_TOPO`) e inverte `dirYBola`.
-4. Na linha da nave, verifica se a coluna da bola está sobre a raquete. Se sim, rebate. Se não, a vida diminui e a bola volta ao ponto inicial.
+4. Na linha logo acima da nave, verifica se a coluna da bola está dentro da raquete (`navpos` até `navpos + 12`). Se sim, inverte `dirYBola`. Se a bola chega à linha da nave sem ter batido, chama `Restart`, que desconta uma vida e recoloca a bola no ponto inicial.
 5. Consulta o mapa para ver se a próxima célula é parte de um bloco.
 6. Desenha a bola na nova posição.
 
@@ -44,7 +44,7 @@ A raquete tem 13 caracteres (`TAMANHO_NAV`) e fica na linha 22. `NaveEsq` e `Nav
 | `INT4` | `Pause` | Pausa e retoma |
 | `INT15` | `Timer` | Passo do jogo (move a bola) |
 
-O laço principal (`Ciclo: BR Ciclo`) não faz nada. Todo o jogo é dirigido por interrupções, o que deixa o movimento da bola independente da velocidade com que o jogador aperta as teclas. A velocidade é definida por `VELOCIDADE` e configurada em `ConfigureTimer`.
+O laço principal (`Ciclo: BR Ciclo`) não faz nada. Todo o jogo é dirigido por interrupções, o que deixa o movimento da bola independente da velocidade com que o jogador aperta as teclas. O timer dispara uma vez por vez: a rotina `Timer` chama `movBola` e rearma o temporizador com `ConfigureTimer`, que grava `VELOCIDADE` em `TIMER_UNITS` e o estado do jogo em `ACTIVATE_TIMER`. Com `game_state` zerado, o timer não rearma e o jogo para.
 
 ## Placar e vidas
 
@@ -52,4 +52,4 @@ A pontuação é um inteiro. Para imprimir, `Printscore` divide por `CENTENA` e 
 
 ## Estados
 
-`game_state` indica se o jogo está rodando. `Restart` restaura o mapa a partir das linhas salvas (`linhaSave1` e `linhaSave2`), zera pontuação e vidas, e recoloca bola e nave nas posições iniciais.
+`game_state` indica se o jogo está rodando. Quando a bola cai, `Restart` decrementa `life`, redesenha o contador e, se ele chegar ao caractere `0`, entra em `DoGameOver`: zera `game_state`, desliga o timer e imprime as mensagens de fim. `DoYouWin` faz o mesmo ao quebrar o último bloco. Já `RestartGame` (interrupção 3) restaura vidas, pontuação e posição da nave, recompõe o mapa a partir das linhas salvas (`linhaSave1` e `linhaSave2`, pela rotina `BlocoFant`) e rearma o timer.

@@ -28,7 +28,7 @@ O simulador expõe os botões de interrupção numerados. O jogo usa quatro dele
 |-------|-------------|------|
 | `1`   | `INT1`      | Move a nave para a esquerda |
 | `2`   | `INT2`      | Move a nave para a direita |
-| `3`   | `INT3`      | Reinicia a partida (depois do Game Over ou da vitória) |
+| `3`   | `INT3`      | Reinicia a partida (depois do Game Over ou da vitória). A mensagem na tela fala em "R", mas a ação está ligada à interrupção 3 |
 | `4`   | `INT4`      | Pausa e retoma o jogo |
 
 - Você começa com **3 vidas**. Se a bola passa da nave, perde uma.
